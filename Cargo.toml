@@ -1,0 +1,15 @@
+[package]
+name = "commits-tilewall"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+image = "0.24"
+chrono = "0.4"
+imageproc = "0.23"
+rusttype = "0.9"
+fontconfig = "0.7"
+
+[[bin]]
+name = "commits-tilewall"
+path = "main.rs"
