@@ -1,0 +1,37 @@
+name: commits-tilewall
+type: app
+base: core24
+version: '0.1.0+git'
+summary: A cli tool to generate an image for multiple Git repositories
+description: |
+  A Rust application that generates a visual representation of commit activity across multiple Git repositories.
+  This tool helps you visualize your contributions over time, making it easier to see patterns in your coding activity.
+  - Collects commit data from specified Git repositories.
+  - Visualizes commit activity in a grid format, with each block representing a day.
+  - Automatically detects and uses a system font for rendering.
+
+grade: stable
+confinement: strict
+issues: https://github.com/fourdollars/commits-tilewall/issues
+website: https://github.com/fourdollars/commits-tilewall
+license: MIT
+
+parts:
+  commits-tilewall:
+    plugin: rust
+    source: .
+    build-packages:
+      - build-essential
+      - cargo
+      - libfontconfig-dev
+    stage-packages:
+      - git
+      - libfontconfig1
+
+apps:
+  commits-tilewall:
+    command: bin/commits-tilewall
+    plugs:
+      - desktop
+      - home
+      - removable-media
