@@ -291,15 +291,31 @@ fn generate_commit_image(author: &str, repos: &[String], theme_name: &str) -> Im
             }
 
             // Draw all days in a grid
-            for day in 1..=31 {
+            let days_in_month = match month {
+                1 => 31, // January
+                2 => if year % 4 == 0 && (year % 100 != 0 || year % 400 == 0) { 29 } else { 28 }, // February
+                3 => 31, // March
+                4 => 30, // April
+                5 => 31, // May
+                6 => 30, // June
+                7 => 31, // July
+                8 => 31, // August
+                9 => 30, // September
+                10 => 31, // October
+                11 => 30, // November
+                12 => 31, // December
+                _ => 0, // Invalid month
+            };
+
+            for day in 1..=days_in_month {  // Adjusted to use days_in_month
                 let col = (day - 1) % month_grid_width;
                 let row = (day - 1) / month_grid_width;
-                
-                let x = month_x_offset + col * (block_size + space_size);
-                let y = year_offset + month_label_height + row * (block_size + space_size);
 
                 // Only draw if within bounds
-                if row < month_grid_height {
+                if row < month_grid_height && day <= days_in_month {  // Ensure we only draw within the grid height and valid days
+                    let x = month_x_offset + col * (block_size + space_size);
+                    let y = year_offset + month_label_height + row * (block_size + space_size);
+
                     // Set color based on number of commits
                     let color_value = if let Some(date) = NaiveDate::from_ymd_opt(year, month, day) {
                         if let Some(&count) = commit_count_per_day.get(&date) {
@@ -316,7 +332,7 @@ fn generate_commit_image(author: &str, repos: &[String], theme_name: &str) -> Im
                         for bx in 0..block_size {
                             let pixel_x = x + bx;
                             let pixel_y = y + by;
-                            
+
                             if pixel_x < img.width() && pixel_y < img.height() {
                                 img.put_pixel(pixel_x, pixel_y, color_value);
                             }
@@ -421,7 +437,7 @@ fn generate_commit_image(author: &str, repos: &[String], theme_name: &str) -> Im
                         &mut img,
                         &level_text,
                         text_x as i32,
-                        (year_offset + (i as u32 + 7) * (block_size + space_size)) as i32,
+                        ((i as u32 + 7) * (block_size + space_size)) as i32,
                         block_size as f32 * 0.8,
                         theme.text_secondary,
                         &font
