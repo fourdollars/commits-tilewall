@@ -157,6 +157,7 @@ fn generate_commit_image(author: &str, repos: &[String], theme_name: &str) -> Im
 
     for repo in repos {
         // Collect dates
+        println!("Collecting commit dates for repo: {}", repo);
         let output = Command::new("git")
             .arg("log")
             .arg("--author")
@@ -476,6 +477,8 @@ fn main() {
     }
 
     let img = generate_commit_image(author, &repos, theme);
+    let current_dir = std::env::current_dir().expect("Failed to get current directory");
+    println!("Current directory: {}", current_dir.display());
     let output_path = format!("commit_image_{}.png", author.replace(" ", "_"));
-    img.save(output_path).expect("Failed to save the image");
+    img.save(current_dir.join(&output_path)).expect("Failed to save the image");
 }
