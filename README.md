@@ -1,6 +1,6 @@
 # commits-tilewall
 
-A Rust application that generates a visual representation of commit activity across multiple Git repositories. This tool helps you visualize your contributions over time, making it easier to see patterns in your coding activity.
+A Rust application that generates a visual representation of commit activity across multiple _local_ Git repositories. This tool helps you visualize your contributions over time, making it easier to see patterns in your coding activity.
 
 ## Features
 
