@@ -10,12 +10,7 @@ A Rust application that generates a visual representation of commit activity acr
 
 ## Installation
 
-To use this application, ensure you have Rust and Cargo installed. Then, clone the repository and build the project:
-
-```
-Usage: commits-tilewall <author> <repo1> [repo2...] [--theme <theme>]
-Available themes: light (default), dark, github
-```
+To use this application, you can install it from Snap Store, or build and install it from the source code.
 
 ### Snap Package
 
@@ -23,9 +18,26 @@ Available themes: light (default), dark, github
 
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-white.svg)](https://snapcraft.io/commits-tilewall)
 
+```bash
+snap install --edge commits-tilewall
+snap connect commits-tilewall:removable-media
 ```
-$ snap install --edge commits-tilewall
-$ snap connect commits-tilewall:removable-media
+
+### Build and Install from Source
+
+Ensure you have [Rust](https://www.rust-lang.org/) and [Cargo](https://doc.rust-lang.org/cargo/) installed.
+
+```bash
+git clone https://github.com/fourdollars/commits-tilewall.git
+cd commits-tilewall
+cargo install --path .
+```
+
+## Usage
+
+```
+Usage: commits-tilewall <author> <repo1> [repo2...] [--theme <theme>]
+Available themes: light (default), dark, github
 ```
 
 This image visually represents the commit activity of the specified author across multiple Git repositories over a defined period. Each block in the grid corresponds to a day, with the color intensity indicating the number of commits made on that day. The grid is organized by month and year, allowing for easy identification of periods of high activity. The background color and text are customizable based on the selected theme (light, dark, or github), enhancing the visual appeal and readability of the data. The overall layout provides a clear and concise overview of the author's contributions over time, making it a valuable tool for tracking coding activity and patterns.
