@@ -1,0 +1,20 @@
+# Incomplete Debian packaging control file for generating the build and runtime dependency packages
+#
+# Copyright 2024 林博仁(Buo-ren Lin) <Buo.Ren.Lin@gmail.com>
+# SPDX-License-Identifier: CC-BY-SA-4.0
+Source: commits-tilewall
+Priority: optional
+Homepage: https://github.com/brlin-tw/commits-tilewall
+Standards-Version: 3.9.2
+Build-Depends:
+    build-essential
+    ,cargo
+    ,debhelper-compat (= 12)
+    ,libfontconfig-dev
+
+Package: commits-tilewall-deps
+Maintainer: 林博仁(Buo-ren Lin) <buo.ren.lin@gmail.com>
+Depends:
+    git
+    ,libfontconfig1
+

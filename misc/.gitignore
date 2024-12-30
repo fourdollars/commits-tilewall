@@ -1,0 +1,4 @@
+# Don't track built Debian packages and Co.
+*.deb
+*.changes
+*.buildinfo
