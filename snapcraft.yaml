@@ -15,6 +15,8 @@ confinement: strict
 issues: https://github.com/fourdollars/commits-tilewall/issues
 website: https://github.com/fourdollars/commits-tilewall
 license: MIT
+assumes:
+  - command-chain
 
 parts:
   commits-tilewall:
@@ -28,9 +30,18 @@ parts:
       - git
       - libfontconfig1
 
+  git-launch:
+    source: https://github.com/brlin-tw/git-launch.git
+    source-tag: v1.0.1
+    plugin: dump
+    stage:
+      - bin/*
+
 apps:
   commits-tilewall:
     command: bin/commits-tilewall
+    command-chain:
+      - bin/git-launch
     plugs:
       - desktop
       - home
