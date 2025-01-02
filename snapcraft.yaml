@@ -16,6 +16,14 @@ issues: https://github.com/fourdollars/commits-tilewall/issues
 website: https://github.com/fourdollars/commits-tilewall
 license: MIT
 
+architectures:
+  - amd64
+  - arm64
+  - armhf
+  - ppc64el
+  - riscv64
+  - s390x
+
 parts:
   commits-tilewall:
     plugin: rust
