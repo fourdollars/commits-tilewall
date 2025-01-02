@@ -354,7 +354,7 @@ fn generate_commit_image(author: &str, repos: &[String], theme_name: &str) -> Im
         // Draw summary on the right side
         let summary_x = width - summary_width - space_size * 2;
         let stats_x = summary_x;  // Stats start at the same x position
-        let legend_x = summary_x + block_size * 20;  // Color legend starts after stats
+        let legend_x = summary_x + block_size * 8;  // Color legend starts after stats
 
         // Count total commits and stats for the year
         let year_total: i32 = commit_count_per_day.iter()
@@ -407,17 +407,19 @@ fn generate_commit_image(author: &str, repos: &[String], theme_name: &str) -> Im
             );
         }
 
-        // Draw commit level counts (adjusted position to account for stats)
+        // Adjusted position for commit level counts
+        let level_start_y = year_offset + block_size + space_size;
+
         for (i, &count) in level_counts.iter().enumerate() {
             if count > 0 && 
                legend_x + block_size <= width && 
-               year_offset + (i as u32 + 7) * (block_size + space_size) + block_size <= height {
+               level_start_y + (i as u32 * (block_size + space_size)) + block_size <= height {
                 
                 // Draw colored square
                 draw_block(
                     &mut img,
                     legend_x,
-                    year_offset + (i as u32 + 7) * (block_size + space_size),
+                    level_start_y + (i as u32 * (block_size + space_size)),
                     block_size,
                     theme.commit_colors[i + 1]
                 );
@@ -438,7 +440,7 @@ fn generate_commit_image(author: &str, repos: &[String], theme_name: &str) -> Im
                         &mut img,
                         &level_text,
                         text_x as i32,
-                        ((i as u32 + 7) * (block_size + space_size)) as i32,
+                        (level_start_y + (i as u32 * (block_size + space_size))) as i32,
                         block_size as f32 * 0.8,
                         theme.text_secondary,
                         &font
